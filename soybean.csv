@@ -1,0 +1,9 @@
+aphid,herbicide,planting,yield_kg/ha
+susceptible,not tolerant,early,4050
+resistant,not tolerant,early,4450
+susceptible,tolerant,early,4300
+resistant,tolerant,early,4400
+susceptible,not tolerant,late,3800
+resistant,not tolerant,late,3600
+susceptible,tolerant,late,3800
+resistant,tolerant,late,3950

@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{fullpage}
+
+\begin{document}
+
+
+\title{Decision making under uncertainty}
+\author{Jarad Niemi}
+\date{\today}
+
+
+\section{General framework}
+
+The Bayesian framework for making a decision is to 
+\emph{maximum expected utility}. 
+\emph{Utility} is the value that you place on different outcomes, 
+e.g. when farming soybeans the utility would be yield times soybean price
+minus the cost. 
+Since the many of these quantities are unknown when we need to make a decision,
+we treat the future realized value as a random variable. 
+The \emph{expectation} is the mean value of the random variable, 
+e.g. 
+
+
+
+
+Suppose you know there are no aphids s
+
+
+
+\end{document}
