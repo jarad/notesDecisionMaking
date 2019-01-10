@@ -1,9 +1,35 @@
 \documentclass{article}
 
-\usepackage{fullpage}
+\usepackage{fullpage,amsmath}
+
+\newcommand{\argmax}{\mbox{argmax}}
+
+
+
+<<options, results='hide', echo=FALSE, purl=FALSE>>=
+opts_chunk$set(comment=NA, 
+               fig.width=6, fig.height=5, 
+               size='small', 
+               out.width='0.8\\textwidth', 
+               fig.align='center', 
+               message=FALSE,
+               echo=FALSE,
+               cache=FALSE)
+options(width=120)
+@
+
+<<libraries, warning=FALSE>>=
+library("tidyverse")
+library("xtable")
+@
+
+<<set_seed>>=
+set.seed(2)
+@
+
+
 
 \begin{document}
-
 
 \title{Decision making under uncertainty}
 \author{Jarad Niemi}
@@ -13,19 +39,92 @@
 \section{General framework}
 
 The Bayesian framework for making a decision is to 
-\emph{maximum expected utility}. 
-\emph{Utility} is the value that you place on different outcomes, 
-e.g. when farming soybeans the utility would be yield times soybean price
-minus the cost. 
-Since the many of these quantities are unknown when we need to make a decision,
-we treat the future realized value as a random variable. 
-The \emph{expectation} is the mean value of the random variable, 
-e.g. 
+\emph{maximize expected utility}. 
+\emph{Utility} is the value that you place on different outcomes.
+In the farmer decision case, the utility is just net profit
+\footnote{I'm using the word ``net'' here only so I can abbreviate it by N rather
+than P which would be confusing with price. I am not trying to be technical to
+differentiate net vs gross profit.}
+which (simply) is yield times price minus cost.
+Since many of these quantities (yield, price, and cost) 
+are unknown when we need to make a decision,
+we treat the future realized values as random variables and denote them with 
+a capital letter, e.g. [N]et profit, [Y]ield, [P]rice, and [C]ost.
+Thus, $N=YP-C$.
+The \emph{expectation} is the mean value of the random variable and is 
+denoted using the symbol $E[\cdot]$, e.g. $E[Y]$ is the expected yield.
+Let's suppose we use the notation $d$ to represent a decision and all of these
+quantities will depend on that decision, 
+thus we have $N(d)=Y(d) P(d)-C(d)$. 
+So, finally, our optimal decision is 
+\[
+d^{opt} 
+= \argmax_{d\in \mathcal{D}} E[N(d)] 
+= \argmax_{d\in \mathcal{D}} E[Y(d) P(d) - C(d)] 
+% = \argmax_{d\in \mathcal{D}} E[Y(d) P(d)] - E[C(d)] 
+\]
+where $\mathcal{D}$ is the set of possible decisions.
+
+
+
+\section{Farmer choice}
+
+As I understand Ashley's ASA presentation,
+there are a few decisions that a farmer can make:
+
+\begin{itemize}
+\item Susceptible vs Resistant Soybean varieties
+\item Herbicide tolerant (RR) vs no herbicide tolerance (No-HT)
+\item Insecticide vs no insecticide
+\item Scouting vs no scouting
+\end{itemize}
 
 
 
 
-Suppose you know there are no aphids s
+
+
+\subsection{Susceptible vs Resistant Soybean varieties - no aphid resistance}
+
+For the moment, let's assume that there is no chance that resistant aphids 
+arrive on the farm and that the farmer is only 
+
+
+
+From the presentation it looks like the 1st and 3rd decision actually go
+together, i.e. if you select susceptible then you use insecticide and if you
+select resistant then you don't use insecticide.
+So, for simplicity, I'll assume this and thus there are really 4 possible
+decisions:
+
+\begin{itemize}
+\item $d_{SH}$: susceptible (with insecticide) with herbicide tolerance
+\item $d_{SN}$: susceptible (with insecticide) with no herbicide tolerance
+\item $d_{RH}$: resistant (with no insecticide) with herbicide tolerance
+\item $d_{RN}$: resistant (with no insecticide) with no herbicide tolerance
+\end{itemize}
+
+Now, we have the following data on a per hectare basis.
+
+<<results = "asis">>=
+soybean <- read.csv("soybean.csv") %>%
+  filter(planting == "early") %>%
+  select(-planting)
+cost    <- read.csv("cost.csv") %>%
+  mutate(cost = cost * 2.47105) # convert from acre to hectare
+
+d <- left_join(soybean, cost, by = "aphid")
+
+tab <- xtable(d)
+print(tab)
+@
+
+This cost only accounts for the cost of the variety and not the cost of
+operation, so to be more complete, we would want that cost.
+
+
+
+
 
 
 
