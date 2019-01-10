@@ -1,4 +1,4 @@
-aphid,herbicide,planting,yield_kg/ha
+variety,herbicide,planting,yield_kg/ha
 susceptible,not tolerant,early,4050
 resistant,not tolerant,early,4450
 susceptible,tolerant,early,4300

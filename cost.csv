@@ -1,3 +1,3 @@
-aphid,cost
-susceptible,47.62
-resistant,48.23
+scenario,variety,herbicide,cost
+s1,susceptible,tolerant,
+s2,resistant,

@@ -1,0 +1,6 @@
+scenario,variety,herbicide,aphid,cost
+s1,susceptible,tolerant,normal,496.36
+s1,susceptible,conventional,normal,482.26
+s2,susceptible,tolerant,resistant,521.68
+s2,susceptible,conventional,resistant,507.58
+s3,resistant,conventional,
